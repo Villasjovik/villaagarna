@@ -222,7 +222,7 @@ background:rgba(212,168,75,.05);border-radius:0 12px 12px 0;text-align:left}
 @media(max-width:700px){.math-calc{grid-template-columns:1fr}.mc:not(:last-child){border-right:none;border-bottom:1px solid rgba(212,168,75,.12)}.mc-arrow{display:none}.math-compare{grid-template-columns:1fr}}
 
 /* ══ PRICING ════════════════════════════════════ */
-#sec-pr{position:relative;background:var(--bg2);padding:96px 24px;overflow:hidden}
+#sec-pr{position:relative;background:linear-gradient(145deg,var(--brn) 0%,var(--brn2) 50%,var(--brn) 100%);padding:96px 24px;overflow:hidden}
 .pr-inner{position:relative;z-index:1;max-width:800px;margin:0 auto}
 .pr-orb{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
 .pr-orb-1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,122,62,.12),transparent);top:-150px;right:-100px;animation:orbf 26s ease-in-out infinite}
@@ -274,7 +274,9 @@ background-image:radial-gradient(circle,rgba(212,168,75,.06) 1px,transparent 1px
 .cta-orb-2{width:450px;height:450px;background:radial-gradient(circle,rgba(212,168,75,.12),transparent);top:-120px;left:-80px;animation:orbf 18s ease-in-out infinite;animation-delay:-11s}
 .cta-inner{position:relative;z-index:1;padding:80px 24px}
 .cta-tag{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
-#sec-cta h2{font-family:'Playfair Display',serif;font-size:clamp(40px,8vw,110px);font-weight:400;line-height:.95;margin-bottom:32px}
+#sec-cta h2{font-family:'Playfair Display',serif;font-weight:400;line-height:1.0;margin-bottom:32px}
+#sec-cta .cta-l1{font-size:clamp(40px,7vw,100px)}
+#sec-cta .cta-l2{font-size:clamp(52px,9.5vw,140px)}
 #sec-cta h2 em{font-style:italic;color:var(--gold)}
 .cta-sub{font-size:15px;color:var(--muted);max-width:360px;margin:0 auto 48px;line-height:1.8}
 .mag-w{display:inline-block}
@@ -580,19 +582,25 @@ position:relative;overflow:hidden;transition:color .35s}
   <div class="cta-orb cta-orb-1" aria-hidden="true"></div>
   <div class="cta-orb cta-orb-2" aria-hidden="true"></div>
   <div class="cta-inner">
-    <p class="cta-tag">Redo att testa?</p>
-    <h2><div class="ws"><div class="w"><i>Hör av er</i></div></div><br><div class="ws"><div class="w"><i><em>så kör vi.</em></i></div></div></h2>
-    <p class="cta-sub">Frågor, funderingar eller vill ni boka ett samtal? Jag hör gärna från er.</p>
-    <div class="mag-w" id="mag-w">
-      <a href="mailto:kontakt@villasjovik.se" class="mag-btn" id="mag-btn">
-        <span>Kontakta Carin</span>
+    <p class="cta-tag rv">Nästa steg</p>
+    <h2 class="rv">
+      <span class="cta-l1">Redo att</span><br>
+      <em class="cta-l2">sätta igång?</em>
+    </h2>
+    <p class="cta-sub rv">Jag berättar gärna mer om hur samarbetet kan se ut — och anpassar paketet efter era behov.</p>
+    <div class="mag-w rv" id="mag-w">
+      <a href="mailto:carin@villasjovik.se?subject=Villaägarna%20×%20Villa%20Sjövik%20—%20Samarbete%202026" class="mag-btn" id="mag-btn">
+        <span>Skicka mail &rarr;</span>
       </a>
     </div>
     <div class="cta-div" aria-hidden="true"></div>
-    <div class="cta-con">
-      <p class="cta-name">Carin Norberg — Villa Sjövik</p>
-      <p class="cta-det">kontakt@villasjovik.se · 070–65 66 596</p>
-      <p class="cta-det">@villasjovik · villasjovik.se</p>
+    <div class="cta-con rv">
+      <p class="cta-name">Carin Norberg</p>
+      <p class="cta-det">
+        <a href="mailto:carin@villasjovik.se">carin@villasjovik.se</a><br>
+        070-65 66 596<br>
+        @villasjovik
+      </p>
     </div>
   </div>
 </section>

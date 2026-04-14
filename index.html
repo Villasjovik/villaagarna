@@ -47,16 +47,16 @@ body.ct #cur-r{width:2px;height:26px;border-radius:2px}
 .gd{height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,75,.55) 25%,rgba(212,168,75,.9) 50%,rgba(212,168,75,.55) 75%,transparent)}
 
 /* CURTAIN */
-#curt{position:fixed;inset:0;z-index:8000;pointer-events:none}
-.cp{position:absolute;top:0;bottom:0;width:50%;background:var(--bg);transition:transform 1.1s cubic-bezier(.76,0,.24,1)}
-.cp:first-child{left:0}.cp:last-child{right:0}
-#curt.open .cp:first-child{transform:translateX(-101%)}
-#curt.open .cp:last-child{transform:translateX(101%)}
-#cc{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.cl{height:48px;object-fit:contain;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
-.cl-va{height:36px;object-fit:contain;opacity:0;transform:translateY(10px);transition:opacity .5s .3s,transform .5s .3s;filter:brightness(0) invert(1)}
-.cx{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:36px;opacity:0;transition:opacity .5s .15s,transform .5s .15s;transform:translateY(8px)}
-#curt.rdy .cl,#curt.rdy .cx,#curt.rdy .cl-va{opacity:1;transform:none}
+#curt{position:fixed;inset:0;z-index:8000;pointer-events:none;display:grid;grid-template-columns:1fr 1fr}
+.cp{background-color:var(--bg3);background-image:radial-gradient(ellipse 160% 120% at 50% 50%,transparent 10%,rgba(2,26,14,.82) 100%),radial-gradient(circle,rgba(212,168,75,.055) 1px,transparent 1px);background-size:100% 100%,28px 28px;transition:transform 1.2s .32s cubic-bezier(.76,0,.24,1)}
+body.ready .cp:first-child{transform:translateX(-101%);transition-delay:1.15s}
+body.ready .cp:last-child{transform:translateX(101%);transition-delay:1.15s}
+#cc{position:fixed;inset:0;z-index:8001;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;pointer-events:none;transition:opacity .35s .75s ease}
+body.ready #cc{opacity:0}
+.cl{height:clamp(48px,7vw,88px);object-fit:contain;filter:brightness(0) invert(1) opacity(.9);opacity:0;animation:curtX .6s .05s var(--ease) forwards}
+.cx{font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);font-size:clamp(32px,5vw,60px);line-height:1;opacity:0;animation:curtX .6s .25s var(--ease) forwards}
+.cl-va{height:clamp(22px,3.5vw,34px);width:auto;object-fit:contain;display:block;filter:brightness(0) invert(1) opacity(.9);opacity:0;animation:curtX .6s .45s var(--ease) forwards}
+@keyframes curtX{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
 
 /* SIDENAV */
 #snav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
@@ -81,7 +81,7 @@ background-image:radial-gradient(circle,rgba(212,168,75,.06) 1px,transparent 1px
 .h-content{position:relative;z-index:2;padding:80px 24px;display:flex;flex-direction:column;align-items:center}
 .h-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:40px}
 .h-lockup{display:flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
-.h-vs{height:clamp(52px,8vw,100px);object-fit:contain;filter:drop-shadow(0 0 20px rgba(1,142,71,.35))}
+.h-vs{height:clamp(52px,8vw,100px);object-fit:contain;filter:brightness(0) invert(1) drop-shadow(0 0 20px rgba(1,142,71,.35))}
 .h-x{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(36px,5.5vw,64px);color:var(--gold);line-height:1}
 .h-va{height:clamp(28px,3.5vw,46px);object-fit:contain;filter:brightness(0) invert(1);opacity:.85}
 .h-tagline{font-family:'Playfair Display',serif;font-size:clamp(24px,3.8vw,48px);font-weight:400;line-height:1.2;
@@ -93,14 +93,25 @@ max-width:680px;margin-bottom:20px}
 .h-line{width:1px;height:44px;background:linear-gradient(180deg,var(--gold),transparent);animation:lb 2s ease-in-out infinite}
 @keyframes lb{0%,100%{transform:scaleY(1);opacity:.7}50%{transform:scaleY(.55);opacity:1}}
 
-/* ══ MARQUEE ═══════════════════════════════════ */
-#sec-mq{background:#040404;border-top:1px solid rgba(212,168,75,.15);border-bottom:1px solid rgba(212,168,75,.15);padding:18px 0;overflow:hidden}
-.mq-track{display:flex;align-items:center;width:max-content;animation:mqs 24s linear infinite;will-change:transform}
-.mq-track:hover{animation-play-state:paused}
-.mq-item{display:flex;align-items:center;gap:22px;padding:0 22px;white-space:nowrap}
-.mq-t{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(16px,2vw,26px);color:rgba(242,237,228,.48)}
-.mq-t.g{color:var(--gold)}
-.mq-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.4;flex-shrink:0}
+/* ══ PARTNERS TICKER ════════════════════════════ */
+#sec-mq{
+  background:#EDE8DC;
+  border-top:2px solid rgba(212,168,75,.45);
+  border-bottom:2px solid rgba(212,168,75,.45);
+  padding:28px 0 36px;overflow:hidden;position:relative
+}
+#sec-mq::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:linear-gradient(90deg,#EDE8DC 0%,transparent 10%,transparent 90%,#EDE8DC 100%)
+}
+.mq-head{text-align:center;padding-bottom:20px;position:relative;z-index:3}
+.mq-lbl{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(24,19,15,.45);font-weight:600}
+.ticker-wrap{overflow:hidden;position:relative;z-index:3}
+.ticker-track{display:flex;align-items:center;width:max-content;animation:mqs 44s linear infinite;will-change:transform}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{width:160px;height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0 24px}
+.ticker-logo{width:100%;height:36px;object-fit:contain;opacity:.7;transition:opacity .3s;display:block}
+.ticker-item:hover .ticker-logo{opacity:1}
 @keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ══ PROFIL — varför VS ════════════════════════ */
@@ -126,10 +137,10 @@ background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:
 .sc-suf{font-size:.45em;color:var(--warm)}
 .sc-lbl{margin-top:8px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .profil-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px}
-.gc{background:rgba(255,255,255,.045);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.09);border-top:1px solid rgba(212,168,75,.2);border-radius:18px;
-padding:36px 32px;transition:border-color .3s,box-shadow .3s,transform .35s var(--ease)}
-.gc:hover{border-color:rgba(212,168,75,.35);box-shadow:0 24px 60px rgba(0,0,0,.3);transform:translateY(-4px)}
+.gc{background:rgba(212,168,75,.045);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+border:1px solid rgba(212,168,75,.22);border-top:2px solid rgba(212,168,75,.45);border-radius:18px;
+padding:36px 32px;transition:border-color .3s,box-shadow .3s,transform .35s var(--ease);box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.gc:hover{border-color:rgba(212,168,75,.5);box-shadow:0 24px 60px rgba(0,0,0,.3);transform:translateY(-4px)}
 .gc h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:500;margin-bottom:12px}
 .gc p{font-size:14px;line-height:1.85;color:var(--muted)}
 @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr)}.sc:nth-child(2){border-right:none}.sc{border-bottom:1px solid rgba(212,168,75,.1)}.sc:nth-child(3),.sc:nth-child(4){border-bottom:none}.profil-grid{grid-template-columns:1fr}}
@@ -140,12 +151,12 @@ padding:36px 32px;transition:border-color .3s,box-shadow .3s,transform .35s var(
 .lev-orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(1,142,71,.18),transparent);top:-160px;right:-120px;animation:orbf 26s ease-in-out infinite}
 .lev-inner{position:relative;z-index:1;max-width:980px;margin:0 auto}
 .lev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
-.lc{padding:42px 32px;border:1px solid var(--bdr);border-radius:20px;background:rgba(255,255,255,.035);
-position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .4s var(--ease)}
+.lc{padding:42px 32px;border:1px solid rgba(212,168,75,.22);border-top:2px solid rgba(212,168,75,.45);border-radius:20px;background:rgba(212,168,75,.045);
+position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .4s var(--ease);box-shadow:0 12px 40px rgba(0,0,0,.25)}
 .lc::before{content:'';position:absolute;inset:0;border-radius:20px;
 background:radial-gradient(circle at 50% 0%,rgba(212,168,75,.09),transparent 70%);opacity:0;transition:opacity .35s}
 .lc:hover::before{opacity:1}
-.lc:hover{border-color:rgba(212,168,75,.35);box-shadow:0 28px 60px rgba(0,0,0,.4);transform:translateY(-5px)}
+.lc:hover{border-color:rgba(212,168,75,.5);box-shadow:0 28px 60px rgba(0,0,0,.4);transform:translateY(-5px)}
 .lc-icon{width:32px;height:32px;margin-bottom:20px;stroke:var(--gold);fill:none;stroke-width:1.5}
 .lc-n{font-family:'Playfair Display',serif;font-size:80px;font-weight:700;
 color:rgba(212,168,75,.06);position:absolute;top:-8px;right:14px;line-height:1;pointer-events:none}
@@ -316,11 +327,11 @@ position:relative;overflow:hidden;transition:color .35s}
 <div id="curt" aria-hidden="true">
   <div class="cp"></div>
   <div class="cp"></div>
-  <div id="cc">
-    <img class="cl" src="https://raw.githubusercontent.com/Villasjovik/thefriendlyhome/main/villasjovik_logga.webp" alt="Villa Sjövik"/>
-    <div class="cx">×</div>
-    <img class="cl-va" src="https://www.villaagarna.se/Static/images/ExternWebb/VA_Logo_RGB.svg" alt="Villaägarna"/>
-  </div>
+</div>
+<div id="cc" aria-hidden="true">
+  <img class="cl" src="https://raw.githubusercontent.com/Villasjovik/thefriendlyhome/main/villasjovik_logga.webp" alt="Villa Sjövik"/>
+  <span class="cx">×</span>
+  <img class="cl-va" src="https://www.villaagarna.se/Static/images/ExternWebb/VA_Logo_RGB.svg" alt="Villaägarna"/>
 </div>
 
 <!-- ══ HERO ══════════════════════════════════════════ -->
@@ -347,26 +358,30 @@ position:relative;overflow:hidden;transition:color .35s}
 
 <div class="gd"></div>
 
-<!-- MARQUEE -->
-<div id="sec-mq" aria-hidden="true">
-  <div class="mq-track">
-    <div class="mq-item"><span class="mq-t g">164 000 husägare</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Garanterade visningar</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t g">0,125% konvertering räcker</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Villa Sjövik × Villaägarna</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t g">12 månaders bindningstid</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Varje ny medlem = 576 kr/år</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t g">No-brainer</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Hem &amp; livsstil — rätt nisch</span><div class="mq-dot"></div></div>
-    <!-- duplicate -->
-    <div class="mq-item"><span class="mq-t g">164 000 husägare</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Garanterade visningar</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t g">0,125% konvertering räcker</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Villa Sjövik × Villaägarna</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t g">12 månaders bindningstid</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Varje ny medlem = 576 kr/år</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t g">No-brainer</span><div class="mq-dot"></div></div>
-    <div class="mq-item"><span class="mq-t">Hem &amp; livsstil — rätt nisch</span><div class="mq-dot"></div></div>
+<!-- PARTNERS TICKER -->
+<div id="sec-mq">
+  <div class="mq-head rv">
+    <p class="mq-lbl">Tidigare samarbeten</p>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/lexington.png" alt="Lexington" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/segway.png" alt="Segway" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/nuura.png" alt="Nuura" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/mille_notti.avif" alt="Mille Notti" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/tinekhome.jpg" alt="TineK Home" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/markslojd.avif" alt="Markslöjd" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/vedum.png" alt="Vedum" class="ticker-logo"></div>
+      <div class="ticker-item"><img src="https://villasjovik.github.io/velux/logos/husqvarna.jpg" alt="Husqvarna" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/lexington.png" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/segway.png" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/nuura.png" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/mille_notti.avif" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/tinekhome.jpg" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/markslojd.avif" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/vedum.png" alt="" class="ticker-logo"></div>
+      <div class="ticker-item" aria-hidden="true"><img src="https://villasjovik.github.io/velux/logos/husqvarna.jpg" alt="" class="ticker-logo"></div>
+    </div>
   </div>
 </div>
 
@@ -378,7 +393,7 @@ position:relative;overflow:hidden;transition:color .35s}
   <div class="p-orb p-orb-2" aria-hidden="true"></div>
   <div class="sec-inner">
     <p class="sec-lbl rv">Varför Villa Sjövik</p>
-    <h2 class="sec-h2 ws rv">Vi är inte en mediabyrå.<br><em>Vi är er målgrupp.</em></h2>
+    <h2 class="sec-h2 ws rv">Inte en chansning.<br><em>Jag är er målgrupp.</em></h2>
     <div class="stats-grid">
       <div class="sc rv d1">
         <div class="sc-bg" aria-hidden="true">164</div>
@@ -589,13 +604,7 @@ document.body.classList.add('body-loaded');
 if(typeof gsap!=='undefined'&&typeof ScrollTrigger!=='undefined') gsap.registerPlugin(ScrollTrigger);
 
 /* CURTAIN */
-const curt=document.getElementById('curt');
-setTimeout(()=>curt.classList.add('rdy'),150);
-setTimeout(()=>{
-  curt.classList.add('open');
-  setTimeout(()=>curt.style.display='none',1300);
-  animHero();
-},900);
+setTimeout(()=>document.body.classList.add('ready'), 600);
 function animHero(){
   if(typeof gsap==='undefined') return;
   ['.h-eyebrow','.h-lockup','.h-tagline','.h-sub','.h-scroll'].forEach((s,i)=>{
